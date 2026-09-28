@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Iniciar sesión · Panel de eventos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="pagina-centrada">
+  <main class="tarjeta-login">
+    <h1 class="marca">Panel de eventos</h1>
+    <p class="texto-suave">Entra con la cuenta que te creó el jefe.</p>
+
+    <form method="post" action="{{ url_for('login') }}" class="formulario">
+      <label class="campo">
+        <span>Usuario</span>
+        <input name="usuario" type="text" autocomplete="username" required autofocus>
+      </label>
+      <label class="campo">
+        <span>Contraseña</span>
+        <input name="password" type="password" autocomplete="current-password" required>
+      </label>
+      {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+      <button type="submit" class="boton boton-principal">Iniciar sesión</button>
+    </form>
+  </main>
+</body>
+</html>

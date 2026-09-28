@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Usuarios · Panel de eventos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="pagina-admin">
+  <header class="admin-cabecera">
+    <a class="enlace" href="{{ url_for('index') }}">Volver al calendario</a>
+    <h1>Usuarios</h1>
+  </header>
+
+  <main class="admin">
+    <section class="admin-bloque">
+      <h2>Crear usuario</h2>
+      <form id="form-usuario" class="fila-usuario">
+        <label class="campo">
+          <span>Nombre</span>
+          <input name="nombre" type="text" maxlength="60" required autocomplete="off">
+        </label>
+        <label class="campo">
+          <span>Usuario</span>
+          <input name="usuario" type="text" maxlength="30" required autocomplete="off">
+        </label>
+        <label class="campo">
+          <span>Contraseña</span>
+          <input name="password" type="password" minlength="6" required autocomplete="new-password">
+        </label>
+        <label class="campo">
+          <span>Rol</span>
+          <select name="rol" id="nuevo-rol"></select>
+        </label>
+        <button type="submit" class="boton boton-principal">Crear usuario</button>
+      </form>
+      <p id="error" class="error" role="alert"></p>
+    </section>
+
+    <section class="admin-bloque">
+      <h2>Cuentas</h2>
+      <p id="aviso" class="aviso" role="status"></p>
+      <div class="tabla-contenedor">
+        <table class="tabla">
+          <thead>
+            <tr><th>Nombre</th><th>Usuario</th><th>Rol</th><th>Acciones</th></tr>
+          </thead>
+          <tbody id="lista-usuarios"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <section id="edicion" class="modal" hidden>
+    <div class="modal-contenido" role="dialog" aria-modal="true" aria-labelledby="titulo-edicion">
+      <div class="modal-cabecera">
+        <h2 id="titulo-edicion">Editar usuario</h2>
+        <button id="cancelar-edicion" type="button" class="boton-texto" aria-label="Cerrar">Cerrar</button>
+      </div>
+
+      <form id="form-editar-usuario" class="form-editar">
+        <label class="campo">
+          <span>Nombre</span>
+          <input name="nombre" type="text" maxlength="60" required autocomplete="off">
+        </label>
+        <label class="campo">
+          <span>Usuario</span>
+          <input name="usuario" type="text" maxlength="30" required autocomplete="off">
+        </label>
+        <label class="campo">
+          <span>Nueva contraseña</span>
+          <input name="password" type="password" minlength="6" autocomplete="new-password">
+        </label>
+        <p id="nota-password" class="ayuda">Déjala vacía para conservar la contraseña actual.</p>
+        <label class="campo">
+          <span>Rol</span>
+          <select name="rol"></select>
+        </label>
+        <p class="ayuda">La cuenta del jefe mantiene el rol de Jefe y no puede cambiarse a otro rol.</p>
+        <p id="error-edicion" class="error" role="alert"></p>
+        <div class="acciones-formulario">
+          <button id="cancelar-edicion-2" type="button" class="boton">Cancelar</button>
+          <button type="submit" class="boton boton-principal">Guardar cambios</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <script type="application/json" id="ajustes">{{ ajustes|tojson }}</script>
+  <script src="{{ url_for('static', filename='usuarios.js') }}"></script>
+  <script>
+    document.getElementById("cancelar-edicion-2").addEventListener("click", function () {
+      document.getElementById("cancelar-edicion").click();
+    });
+  </script>
+</body>
+</html>

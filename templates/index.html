@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel de eventos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="app">
+
+    <aside class="lateral">
+      <h1 class="marca">Panel de eventos</h1>
+      <button type="button" class="boton boton-principal" id="btn-nuevo">Nuevo evento</button>
+
+      <fieldset class="filtros">
+        <legend>Mostrar en el calendario</legend>
+        <label class="filtro tipo-evento">
+          <input type="checkbox" name="filtro" value="evento" checked>
+          <span class="muestra"></span>Eventos
+        </label>
+        <label class="filtro tipo-reunion">
+          <input type="checkbox" name="filtro" value="reunion" checked>
+          <span class="muestra"></span>Reuniones
+        </label>
+        <label class="filtro tipo-proyecto">
+          <input type="checkbox" name="filtro" value="proyecto" checked>
+          <span class="muestra"></span>Proyectos
+        </label>
+      </fieldset>
+
+      <p id="aviso" class="aviso" role="status"></p>
+
+      <div class="usuario">
+        <p class="usuario-nombre">{{ yo.nombre }}</p>
+        <p class="usuario-rol">{{ rol_etiqueta }}</p>
+        {% if yo.rol == 'jefe' %}
+        <a class="enlace" href="{{ url_for('users_page') }}">Administrar usuarios</a>
+        {% endif %}
+        <form method="post" action="{{ url_for('logout') }}">
+          <button type="submit" class="boton-texto">Cerrar sesión</button>
+        </form>
+      </div>
+    </aside>
+
+    <main class="principal">
+      <div id="calendario"></div>
+    </main>
+
+    <section class="detalle" id="detalle">
+      <div id="detalle-vacio" class="vacio">
+        <h2>Ningún evento abierto</h2>
+        <p id="detalle-vacio-texto">Toca un día del calendario para crear un evento, o selecciona uno para ver sus detalles.</p>
+      </div>
+
+      <form id="form-evento" class="formulario" hidden>
+        <div class="formulario-cabecera">
+          <h2 id="detalle-titulo">Nuevo evento</h2>
+          <button type="button" class="boton-texto" id="btn-cerrar">Cerrar</button>
+        </div>
+
+        <p id="detalle-creador" class="detalle-creador" hidden></p>
+
+        <label class="campo">
+          <span>Título</span>
+          <input name="titulo" type="text" maxlength="120" required autocomplete="off">
+        </label>
+
+        <fieldset class="campo tipos">
+          <legend>Tipo</legend>
+          <label class="tipo-opcion tipo-evento">
+            <input type="radio" name="tipo" value="evento" checked><span>Evento</span>
+          </label>
+          <label class="tipo-opcion tipo-reunion">
+            <input type="radio" name="tipo" value="reunion"><span>Reunión</span>
+          </label>
+          <label class="tipo-opcion tipo-proyecto">
+            <input type="radio" name="tipo" value="proyecto"><span>Proyecto</span>
+          </label>
+        </fieldset>
+
+        <label class="campo">
+          <span>Fecha</span>
+          <input name="fecha" type="date" required>
+        </label>
+
+        <label class="campo-check">
+          <input name="todo_dia" type="checkbox">
+          <span>Todo el día</span>
+        </label>
+
+        <div class="fila-horas" id="fila-horas">
+          <label class="campo">
+            <span>Inicio</span>
+            <input name="hora_inicio" type="time" required>
+          </label>
+          <label class="campo">
+            <span>Fin</span>
+            <input name="hora_fin" type="time">
+          </label>
+        </div>
+
+        <label class="campo">
+          <span>Descripción</span>
+          <textarea name="descripcion" rows="4" maxlength="1000"></textarea>
+        </label>
+
+        <section id="chat" class="chat" hidden>
+          <div class="chat-cabecera">
+            <div>
+              <h3>Chat del evento</h3>
+              <p>Los mensajes se actualizan en tiempo real.</p>
+            </div>
+            <span id="chat-estado" class="chat-estado">Conectando...</span>
+          </div>
+
+          <div id="chat-mensajes" class="chat-mensajes" aria-live="polite"></div>
+
+          <div id="form-chat" class="chat-formulario">
+            <label class="chat-entrada">
+              <span class="sr-only">Mensaje</span>
+              <textarea id="chat-input" rows="2" maxlength="1000" placeholder="Escribe un mensaje..." required></textarea>
+            </label>
+            <button type="button" id="btn-enviar-chat" class="boton boton-principal">Enviar</button>
+          </div>
+          <p id="chat-error" class="error" role="alert"></p>
+        </section>
+
+        <p id="error" class="error" role="alert"></p>
+
+        <div class="acciones">
+          <button type="submit" class="boton boton-principal" id="btn-guardar">Crear evento</button>
+          <button type="button" class="boton boton-peligro" id="btn-eliminar" hidden>Eliminar evento</button>
+        </div>
+      </form>
+    </section>
+
+  </div>
+
+  <script type="application/json" id="yo">{{ yo|tojson }}</script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/locales/es.global.min.js"></script>
+  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
