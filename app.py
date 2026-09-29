@@ -26,7 +26,7 @@ from flask_socketio import SocketIO, emit, join_room, leave_room
 from werkzeug.security import check_password_hash, generate_password_hash
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_DIR = os.environ.get("DATA_DIR", os.path.join(BASE_DIR, "data"))
+DATA_DIR = os.path.join(BASE_DIR, "data")
 EVENTS_FILE = os.path.join(DATA_DIR, "events.json")
 USERS_FILE = os.path.join(DATA_DIR, "users.json")
 MESSAGES_FILE = os.path.join(DATA_DIR, "messages.json")
@@ -661,6 +661,4 @@ def delete_user(user_id):
 if __name__ == "__main__":
     # 0.0.0.0 permite entrar desde otros dispositivos de la misma red Wi-Fi.
     # SocketIO se encarga de los WebSockets y del servidor de desarrollo.
-    port = int(os.environ.get("PORT", 5000))
-    debug = os.environ.get("FLASK_DEBUG", "0") == "1"
-    socketio.run(app, host="0.0.0.0", port=port, debug=debug)
+    socketio.run(app, host="0.0.0.0", port=5000, debug=True)
