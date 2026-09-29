@@ -45,9 +45,9 @@ CREATE_PERMISSIONS = {
 # Cuentas de ejemplo que se crean la primera vez que arranca la app.
 # (id fijo, usuario, nombre, rol, contraseña)
 DEMO_USERS = [
-    ("u-jefe", "jefe", "Geyer Chirino", "geyer", "geyer123"),
-    ("u-supervisor", "supervisor", "Jacqueline Rivas", "jacqueline", "jacqueline123"),
-    ("u-colaborador", "colaborador", "Chamille Zapata", "chamille", "chamille123"),
+    ("u-jefe", "geyer", "Geyer Chirino", "jefe", "geyer123"),
+    ("u-supervisor", "jacqueline", "Jacqueline Rivas", "supervisor", "jacqueline123"),
+    ("u-colaborador", "chamille", "Chamille Zapata", "colaborador", "chamille123"),
 ]
 
 # Un candado por archivo: evita que dos peticiones lo escriban a la vez.
