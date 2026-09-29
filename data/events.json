@@ -10,22 +10,22 @@
     "creado_por": "u-supervisor"
   },
   {
-    "title": "Taller de planificación trimestral",
-    "start": "2026-09-24",
+    "title": "Taller de oratoria",
+    "start": "2026-09-29",
     "end": null,
     "allDay": true,
     "tipo": "evento",
-    "descripcion": "Todo el equipo. Se define el plan del próximo trimestre.",
+    "descripcion": "Todo el equipo. Se define el plan.",
     "id": "b7e2a41c9d05",
     "creado_por": "u-supervisor"
   },
   {
-    "title": "Entrega de la fase 1 del proyecto Atlas",
-    "start": "2026-09-29",
+    "title": "Entrega del proyecto Final",
+    "start": "2026-09-30",
     "end": null,
     "allDay": true,
     "tipo": "proyecto",
-    "descripcion": "Revisión final con el cliente.",
+    "descripcion": "Revisión final.",
     "id": "c94d0e7f3a68",
     "creado_por": "u-jefe"
   }
